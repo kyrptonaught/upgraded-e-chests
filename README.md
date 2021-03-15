@@ -1,3 +1,3 @@
-#Upgradable Shulkers
+# Upgradable Ender Chests
 
-Iron, Gold, Diamond, Netherite shulkers and more!
+Get it at https://www.curseforge.com/minecraft/mc-mods/upgraded-ender-chests
