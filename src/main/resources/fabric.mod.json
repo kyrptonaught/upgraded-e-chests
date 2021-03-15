@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "upgradedechests",
+  "version": "1.0.0-1.16",
+  "name": "Upgraded Ender Chests",
+  "description": "More Ender chests!",
+  "authors": [
+    "kyrptonaught"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/upgraded-ender-chests",
+    "sources": "https://github.com/kyrptonaught/upgradeded-e-chests"
+  },
+  "license": "MIT",
+  "icon": "assets/upgradedechests/icon.png",
+  "environment": "*",
+  "mixins": [
+    {
+      "config": "net.kyrptonaught.upgradedechests.mixins.json",
+      "environment": "*"
+    }
+  ],
+  "entrypoints": {
+    "main": [
+      "net.kyrptonaught.upgradedechests.UpgradedEchestMod"
+    ],
+    "client": [
+      "net.kyrptonaught.upgradedechests.client.UpgradedEchestClientMod"
+    ],
+    "quickshulker": [
+      "net.kyrptonaught.upgradedechests.compat.Quickshulker"
+    ],
+    "rei_plugins_v0": [
+      "net.kyrptonaught.upgradedechests.compat.REIPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.4.0",
+    "fabric": "*"
+  }
+}

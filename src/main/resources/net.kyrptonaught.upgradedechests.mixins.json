@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "net.kyrptonaught.upgradedechests.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "CreeperEntityAccessor",
+    "EntityExplosionBehaviorMixin",
+    "PlayerEntityMixin"
+  ],
+  "client": [
+    "TexturedRenerLayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

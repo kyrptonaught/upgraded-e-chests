@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "upgradedechests:block/riftchest"
+    }
+  }
+}
