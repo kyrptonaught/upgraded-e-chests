@@ -2,10 +2,12 @@ package net.kyrptonaught.upgradedechests;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kyrptonaught.upgradedechests.block.RiftEChest;
 import net.kyrptonaught.upgradedechests.block.SpatialEChest;
 import net.kyrptonaught.upgradedechests.inv.RiftEChestInventory;
+import net.kyrptonaught.upgradedechests.util.SpatialInvStorage;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.Inventory;
@@ -39,6 +41,10 @@ public class UpgradedEchestMod implements ModInitializer {
                         }
                 }
             });
+        });
+        ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+            if (oldPlayer instanceof SpatialInvStorage)
+                ((SpatialInvStorage) newPlayer).setSpatialInventory(((SpatialInvStorage) oldPlayer).getSpatialInv());
         });
     }
 }

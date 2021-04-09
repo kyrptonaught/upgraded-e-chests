@@ -35,6 +35,11 @@ public class PlayerEntityMixin implements SpatialInvStorage {
         return spatialInv;
     }
 
+    @Override
+    public void setSpatialInventory(SimpleInventory spatialInventory) {
+        this.spatialInv = spatialInventory;
+    }
+
     @Unique
     public void readTags(ListTag tags, SimpleInventory simpleInventory) {
         int j;
