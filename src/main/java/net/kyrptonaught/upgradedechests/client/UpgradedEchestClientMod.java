@@ -15,11 +15,13 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.kyrptonaught.upgradedechests.UpgradedEchestMod;
 import net.kyrptonaught.upgradedechests.block.RiftEChest;
 import net.kyrptonaught.upgradedechests.block.SpatialEChest;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
 
@@ -41,10 +43,10 @@ public class UpgradedEchestClientMod implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(BLUEPARTICLE, ColoredPortalParticle.BlueFactory::new);
         ParticleFactoryRegistry.getInstance().register(GREENPARTICLE, ColoredPortalParticle.GreenFactory::new);
         BuiltinItemRendererRegistry.INSTANCE.register(UpgradedEchestMod.spatialEChest, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-            BlockEntityRenderDispatcher.INSTANCE.renderEntity(SpatialEChest.blockEntity.instantiate(), matrices, vertexConsumers, light, overlay);
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(SpatialEChest.blockEntity.instantiate(BlockPos.ORIGIN,UpgradedEchestMod.spatialEChest.getDefaultState()), matrices, vertexConsumers, light, overlay);
         });
         BuiltinItemRendererRegistry.INSTANCE.register(UpgradedEchestMod.riftEChest, (stack, mode, matrices, vertexConsumers, light, overlay) -> {
-            BlockEntityRenderDispatcher.INSTANCE.renderEntity(RiftEChest.blockEntity.instantiate(), matrices, vertexConsumers, light, overlay);
+            MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(RiftEChest.blockEntity.instantiate(BlockPos.ORIGIN,UpgradedEchestMod.riftEChest.getDefaultState()), matrices, vertexConsumers, light, overlay);
         });
         FabricLoader.getInstance().getModContainer(UpgradedEchestMod.MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(UpgradedEchestMod.MOD_ID, "upgradedechests32x"), modContainer, ResourcePackActivationType.NORMAL);

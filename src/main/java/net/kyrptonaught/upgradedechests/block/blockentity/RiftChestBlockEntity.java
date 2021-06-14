@@ -5,15 +5,16 @@ import net.kyrptonaught.upgradedechests.block.RiftEChest;
 import net.kyrptonaught.upgradedechests.inv.RiftEChestInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.UUID;
 
 public class RiftChestBlockEntity extends OpenableBlockEntity {
-    public RiftChestBlockEntity() {
-        super(RiftEChest.blockEntity);
+    public RiftChestBlockEntity(BlockPos pos, BlockState state) {
+        super(RiftEChest.blockEntity, pos, state);
     }
 
     public UUID storedPlayer;
@@ -42,28 +43,28 @@ public class RiftChestBlockEntity extends OpenableBlockEntity {
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
+    public void readNbt(NbtCompound tag) {
         if (tag.contains("storedplayer"))
             storedPlayer = tag.getUuid("storedplayer");
-        super.fromTag(state, tag);
+        super.readNbt( tag);
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
+    public NbtCompound writeNbt(NbtCompound tag) {
         if (storedPlayer != null)
             tag.putUuid("storedplayer", storedPlayer);
-        return super.toTag(tag);
+        return super.writeNbt(tag);
     }
 
     @Override
-    public void fromClientTag(CompoundTag tag) {
+    public void fromClientTag(NbtCompound tag) {
         if (tag.contains("storedplayer"))
             storedPlayer = tag.getUuid("storedplayer");
         super.fromClientTag(tag);
     }
 
     @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
+    public NbtCompound toClientTag(NbtCompound tag) {
         if (storedPlayer != null)
             tag.putUuid("storedplayer", storedPlayer);
         return super.toClientTag(tag);

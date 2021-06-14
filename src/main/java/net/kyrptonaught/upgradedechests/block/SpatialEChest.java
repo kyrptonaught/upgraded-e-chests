@@ -2,7 +2,10 @@ package net.kyrptonaught.upgradedechests.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.upgradedechests.UpgradedEchestMod;
+import net.kyrptonaught.upgradedechests.block.blockentity.OpenableBlockEntity;
+import net.kyrptonaught.upgradedechests.block.blockentity.RiftChestBlockEntity;
 import net.kyrptonaught.upgradedechests.block.blockentity.SpatialEChestBlockEntity;
 import net.kyrptonaught.upgradedechests.client.UpgradedEchestClientMod;
 import net.kyrptonaught.upgradedechests.inv.SpatialEChestInventory;
@@ -13,6 +16,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EnderChestBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.mob.CreeperEntity;
@@ -40,13 +44,18 @@ public class SpatialEChest extends EnderChestBlock {
     public SpatialEChest(Settings settings) {
         super(settings);
         Registry.register(Registry.BLOCK, new Identifier(UpgradedEchestMod.MOD_ID, "spatialchest"), this);
-        blockEntity = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":spatialchest", BlockEntityType.Builder.create(SpatialEChestBlockEntity::new, this).build(null));
+        blockEntity = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":spatialchest", FabricBlockEntityTypeBuilder.create(SpatialEChestBlockEntity::new, this).build(null));
         Item.Settings itemSettings = new Item.Settings().group(UpgradedEchestMod.GROUP);
         Registry.register(Registry.ITEM, new Identifier(UpgradedEchestMod.MOD_ID, "spatialchest"), new BlockItem(this, itemSettings));
     }
 
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new SpatialEChestBlockEntity();
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new SpatialEChestBlockEntity(pos,state);
+    }
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient  & type == blockEntity ? (world1, pos, state1, blockEntity) -> ((OpenableBlockEntity)blockEntity).clientTick() : null;
     }
 
     @Environment(EnvType.CLIENT)

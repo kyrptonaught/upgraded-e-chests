@@ -5,20 +5,21 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;
 import net.fabricmc.api.EnvironmentInterfaces;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.block.ChestAnimationProgress;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Tickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
-@EnvironmentInterfaces({@EnvironmentInterface(value = EnvType.CLIENT, itf = ChestAnimationProgress.class), @EnvironmentInterface(value = EnvType.CLIENT, itf = Tickable.class)})
-public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress, Tickable, BlockEntityClientSerializable {
-    OpenableBlockEntity(BlockEntityType<?> blockEntityType) {
-        super(blockEntityType);
+@EnvironmentInterfaces({@EnvironmentInterface(value = EnvType.CLIENT, itf = ChestAnimationProgress.class)})
+public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress,  BlockEntityClientSerializable {
+    OpenableBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
+        super(blockEntityType, pos, state);
     }
 
     int viewerCount = 0;
@@ -40,12 +41,12 @@ public class OpenableBlockEntity extends BlockEntity implements ChestAnimationPr
 
 
     @Override
-    public void fromClientTag(CompoundTag compoundTag) {
+    public void fromClientTag(NbtCompound compoundTag) {
         this.viewerCount = compoundTag.getInt("viewers");
     }
 
     @Override
-    public CompoundTag toClientTag(CompoundTag compoundTag) {
+    public NbtCompound toClientTag(NbtCompound compoundTag) {
         compoundTag.putInt("viewers", viewerCount);
         return compoundTag;
     }
@@ -59,9 +60,8 @@ public class OpenableBlockEntity extends BlockEntity implements ChestAnimationPr
     private float animationAngle;
     private float lastAnimationAngle;
 
-    @Override
     @Environment(EnvType.CLIENT)
-    public void tick() {
+    public void clientTick() {
         if (world != null && world.isClient) {
             int viewerCount = countViewers();
             lastAnimationAngle = animationAngle;

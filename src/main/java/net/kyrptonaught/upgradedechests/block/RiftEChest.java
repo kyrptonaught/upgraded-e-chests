@@ -2,13 +2,16 @@ package net.kyrptonaught.upgradedechests.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.upgradedechests.UpgradedEchestMod;
+import net.kyrptonaught.upgradedechests.block.blockentity.OpenableBlockEntity;
 import net.kyrptonaught.upgradedechests.block.blockentity.RiftChestBlockEntity;
 import net.kyrptonaught.upgradedechests.client.UpgradedEchestClientMod;
 import net.kyrptonaught.upgradedechests.inv.RiftEChestInventory;
 import net.kyrptonaught.upgradedechests.util.ContainerNames;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +21,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
@@ -43,16 +45,21 @@ import java.util.Random;
 public class RiftEChest extends EnderChestBlock implements InventoryProvider {
     public static BlockEntityType<RiftChestBlockEntity> blockEntity;
 
-    public RiftEChest(AbstractBlock.Settings settings) {
+    public RiftEChest(Settings settings) {
         super(settings);
         Registry.register(Registry.BLOCK, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), this);
-        blockEntity = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":riftchest", BlockEntityType.Builder.create(RiftChestBlockEntity::new, this).build(null));
+        blockEntity = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":riftchest", FabricBlockEntityTypeBuilder.create(RiftChestBlockEntity::new, this).build(null));
         Item.Settings itemSettings = new Item.Settings().group(UpgradedEchestMod.GROUP);
         Registry.register(Registry.ITEM, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), new BlockItem(this, itemSettings));
     }
 
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new RiftChestBlockEntity();
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new RiftChestBlockEntity(pos,state);
+    }
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient  & type == blockEntity ? (world1, pos, state1, blockEntity) -> ((OpenableBlockEntity)blockEntity).clientTick() : null;
     }
 
     @Override
