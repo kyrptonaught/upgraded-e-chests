@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.upgradedechests.UpgradedEchestMod;
 import net.kyrptonaught.upgradedechests.block.blockentity.OpenableBlockEntity;
-import net.kyrptonaught.upgradedechests.block.blockentity.RiftChestBlockEntity;
 import net.kyrptonaught.upgradedechests.block.blockentity.SpatialEChestBlockEntity;
 import net.kyrptonaught.upgradedechests.client.UpgradedEchestClientMod;
 import net.kyrptonaught.upgradedechests.inv.SpatialEChestInventory;
@@ -32,7 +31,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -51,11 +49,12 @@ public class SpatialEChest extends EnderChestBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new SpatialEChestBlockEntity(pos,state);
+        return new SpatialEChestBlockEntity(pos, state);
     }
+
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient  & type == blockEntity ? (world1, pos, state1, blockEntity) -> ((OpenableBlockEntity)blockEntity).clientTick() : null;
+        return world.isClient & type == blockEntity ? (world1, pos, state1, blockEntity) -> ((OpenableBlockEntity) blockEntity).clientTick() : null;
     }
 
     @Environment(EnvType.CLIENT)

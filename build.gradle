@@ -14,15 +14,11 @@ minecraft {
 }
 repositories {
 	maven { url 'https://maven.fabricmc.net' }
-	maven {
-		url = "http://maven.kyrptonaught.dev"
-		allowInsecureProtocol = true
-	}
+	maven {url ="https://maven.kyrptonaught.dev"}
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases"}
 }
 dependencies {
-	implementation 'org.jetbrains:annotations:20.1.0'
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"

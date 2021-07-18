@@ -14,7 +14,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 public class UpgradedEchestMod implements ModInitializer {
@@ -37,7 +37,7 @@ public class UpgradedEchestMod implements ModInitializer {
                     if (inv instanceof RiftEChestInventory)
                         if (((RiftEChestInventory) inv).activeBlockEntity.storedPlayer.equals(serverPlayNetworkHandler.player.getUuid())) {
                             playerEntity.closeHandledScreen();
-                            playerEntity.sendMessage(new LiteralText("Bound player must be online to use"), true);
+                            playerEntity.sendMessage(new TranslatableText("upgradedechests.message.boundoffline"), true);
                         }
                 }
             });

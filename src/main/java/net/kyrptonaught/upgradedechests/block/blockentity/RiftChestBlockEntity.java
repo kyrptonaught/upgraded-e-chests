@@ -46,7 +46,7 @@ public class RiftChestBlockEntity extends OpenableBlockEntity {
     public void readNbt(NbtCompound tag) {
         if (tag.contains("storedplayer"))
             storedPlayer = tag.getUuid("storedplayer");
-        super.readNbt( tag);
+        super.readNbt(tag);
     }
 
     @Override

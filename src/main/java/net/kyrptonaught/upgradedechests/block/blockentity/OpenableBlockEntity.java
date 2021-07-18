@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 @EnvironmentInterfaces({@EnvironmentInterface(value = EnvType.CLIENT, itf = ChestAnimationProgress.class)})
-public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress,  BlockEntityClientSerializable {
+public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress, BlockEntityClientSerializable {
     OpenableBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
         super(blockEntityType, pos, state);
     }

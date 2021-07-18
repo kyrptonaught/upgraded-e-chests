@@ -17,9 +17,8 @@ import net.minecraft.text.TranslatableText;
 public class REIPlugin implements REIClientPlugin {
 
 
-
     @Override
-    public  void registerDisplays(DisplayRegistry registry) {
+    public void registerDisplays(DisplayRegistry registry) {
         DefaultInformationDisplay display = DefaultInformationDisplay.createFromEntry(EntryStacks.of(UpgradedEchestMod.riftEChest), new TranslatableText("block.upgradedechests.riftchest"));
         String desc = I18n.translate("upgradedechests.rei.riftrecipe").replaceAll("SPACIALECHEST", I18n.translate("block.upgradedechests.spatialchest")).replaceAll("RIFTECHEST", I18n.translate("block.upgradedechests.riftchest"));
         display.line(new LiteralText(desc));

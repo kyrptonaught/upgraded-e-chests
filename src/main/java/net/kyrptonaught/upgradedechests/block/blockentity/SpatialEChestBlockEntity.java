@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class SpatialEChestBlockEntity extends OpenableBlockEntity {
     public SpatialEChestBlockEntity(BlockPos pos, BlockState state) {
-        super(SpatialEChest.blockEntity,pos,state);
+        super(SpatialEChest.blockEntity, pos, state);
     }
 
 }
