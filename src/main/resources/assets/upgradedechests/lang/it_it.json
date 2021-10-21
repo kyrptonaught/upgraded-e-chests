@@ -2,8 +2,8 @@
   "itemGroup.upgradedechests.echests": "Upgraded Ender Chests",
   "block.upgradedechests.spatialchest": "Baule di ender spaziale",
   "block.upgradedechests.riftchest": "Baule di ender fratturato",
-  "upgradedechests.containername.spatialchest" : "Baule spaziale",
-  "upgradedechests.containername.riftchest" : "Baule fratturato: ",
-  "upgradedechests.rei.riftrecipe" : "Usando la potenza di un esplosione di un Creeper caricato, è possibile creare un RIFTECHEST facendo esplodere un SPACIALECHEST piazzato",
+  "upgradedechests.containername.spatialchest": "Baule spaziale",
+  "upgradedechests.containername.riftchest": "Baule fratturato: ",
+  "upgradedechests.rei.riftrecipe": "Usando la potenza di un esplosione di un Creeper caricato, è possibile creare un RIFTECHEST facendo esplodere un SPACIALECHEST piazzato",
   "upgradedechests.message.boundoffline": "Il giocatore collegato deve essere online per usarlo"
 }

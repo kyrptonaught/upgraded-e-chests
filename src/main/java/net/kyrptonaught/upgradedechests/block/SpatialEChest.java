@@ -10,7 +10,6 @@ import net.kyrptonaught.upgradedechests.client.UpgradedEchestClientMod;
 import net.kyrptonaught.upgradedechests.inv.SpatialEChestInventory;
 import net.kyrptonaught.upgradedechests.mixin.CreeperEntityAccessor;
 import net.kyrptonaught.upgradedechests.util.ContainerNames;
-import net.kyrptonaught.upgradedechests.util.SpatialInvStorage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EnderChestBlock;
@@ -96,7 +95,7 @@ public class SpatialEChest extends EnderChestBlock {
         if (!world.isClient) {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof SpatialEChestBlockEntity) {
-                SpatialEChestInventory inv = new SpatialEChestInventory(player, ((SpatialInvStorage) player).getSpatialInv());
+                SpatialEChestInventory inv = new SpatialEChestInventory(player);
                 inv.setActiveBlockEntity((SpatialEChestBlockEntity) entity);
                 player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
                     return GenericContainerScreenHandler.createGeneric9x6(i, playerInventory, inv);
