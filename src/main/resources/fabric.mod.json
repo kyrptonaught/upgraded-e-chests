@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "upgradedechests",
-  "version": "1.0.3-1.17",
+  "version": "1.0.3-1.18",
   "name": "Upgraded Ender Chests",
   "description": "More Ender chests!",
   "authors": [
@@ -9,8 +9,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/upgraded-ender-chests",
-    "sources": "https://github.com/kyrptonaught/upgradeded-e-chests",
-    "issues": "https://github.com/kyrptonaught/upgradeded-e-chests/issues"
+    "sources": "https://github.com/kyrptonaught/upgraded-e-chests",
+    "issues": "https://github.com/kyrptonaught/upgraded-e-chests/issues"
   },
   "license": "MIT",
   "icon": "assets/upgradedechests/icon.png",
@@ -36,9 +36,8 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.12.5",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16"
+    "java": ">=17"
   }
 }

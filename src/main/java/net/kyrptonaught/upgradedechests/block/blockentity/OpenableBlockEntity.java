@@ -1,15 +1,17 @@
 package net.kyrptonaught.upgradedechests.block.blockentity;
 
+import com.google.common.base.Preconditions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;
 import net.fabricmc.api.EnvironmentInterfaces;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.block.ChestAnimationProgress;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -17,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 @EnvironmentInterfaces({@EnvironmentInterface(value = EnvType.CLIENT, itf = ChestAnimationProgress.class)})
-public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress, BlockEntityClientSerializable {
+public class OpenableBlockEntity extends BlockEntity implements ChestAnimationProgress {
     OpenableBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
         super(blockEntityType, pos, state);
     }
@@ -41,14 +43,35 @@ public class OpenableBlockEntity extends BlockEntity implements ChestAnimationPr
 
 
     @Override
-    public void fromClientTag(NbtCompound compoundTag) {
+    public void readNbt(NbtCompound compoundTag) {
         this.viewerCount = compoundTag.getInt("viewers");
+        super.readNbt(compoundTag);
     }
 
     @Override
-    public NbtCompound toClientTag(NbtCompound compoundTag) {
+    public void writeNbt(NbtCompound compoundTag) {
         compoundTag.putInt("viewers", viewerCount);
-        return compoundTag;
+        super.writeNbt(compoundTag);
+    }
+    @Override
+    public final BlockEntityUpdateS2CPacket toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public final NbtCompound toInitialChunkDataNbt() {
+        NbtCompound nbt = super.toInitialChunkDataNbt();
+        writeNbt(nbt);
+        return nbt;
+    }
+
+    // Thank you Fabric API
+    public void sync() {
+        Preconditions.checkNotNull(world); // Maintain distinct failure case from below
+        if (!(world instanceof ServerWorld))
+            throw new IllegalStateException("Cannot call sync() on the logical client! Did you check world.isClient first?");
+
+        ((ServerWorld) world).getChunkManager().markForUpdate(getPos());
     }
 
     @Override

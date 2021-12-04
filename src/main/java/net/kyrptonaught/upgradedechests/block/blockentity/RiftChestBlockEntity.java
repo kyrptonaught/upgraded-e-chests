@@ -50,23 +50,9 @@ public class RiftChestBlockEntity extends OpenableBlockEntity {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         if (storedPlayer != null)
             tag.putUuid("storedplayer", storedPlayer);
-        return super.writeNbt(tag);
-    }
-
-    @Override
-    public void fromClientTag(NbtCompound tag) {
-        if (tag.contains("storedplayer"))
-            storedPlayer = tag.getUuid("storedplayer");
-        super.fromClientTag(tag);
-    }
-
-    @Override
-    public NbtCompound toClientTag(NbtCompound tag) {
-        if (storedPlayer != null)
-            tag.putUuid("storedplayer", storedPlayer);
-        return super.toClientTag(tag);
+         super.writeNbt(tag);
     }
 }
