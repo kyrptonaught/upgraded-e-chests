@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "upgradedechests",
-  "version": "1.0.4-1.18",
+  "version": "1.0.4-1.19",
   "name": "Upgraded Ender Chests",
   "description": "More Ender chests!",
   "authors": [
@@ -31,7 +31,7 @@
     "quickshulker": [
       "net.kyrptonaught.upgradedechests.compat.Quickshulker"
     ],
-    "rei_plugins_v0": [
+    "rei_client": [
       "net.kyrptonaught.upgradedechests.compat.REIPlugin"
     ]
   },

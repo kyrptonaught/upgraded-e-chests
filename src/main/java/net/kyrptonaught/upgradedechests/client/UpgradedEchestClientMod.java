@@ -5,7 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
@@ -34,8 +34,8 @@ public class UpgradedEchestClientMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockEntityRendererRegistry.INSTANCE.register(SpatialEChest.blockEntity, ChestBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(RiftEChest.blockEntity, ChestBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(SpatialEChest.blockEntity, ChestBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.register(RiftEChest.blockEntity, ChestBlockEntityRenderer::new);
         ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(SPATIAL_ECHEST_TEXTURE));
         ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(RIFT_ECHEST_TEXTURE));
         //ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(RIFT_ECHEST_HOPPER_TEXTURE));

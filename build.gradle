@@ -32,9 +32,9 @@ dependencies {
 	include 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
 
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.3.5-1.18')
+	optionalDependency('net.kyrptonaught:quickshulker:1.3.6-1.19')
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:8.3.501")
+	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:9.1.500")
 }
 //thanks techreborn
 def optionalDependency(String dep) {

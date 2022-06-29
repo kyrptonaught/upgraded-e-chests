@@ -24,7 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -90,9 +90,9 @@ public class RiftEChest extends EnderChestBlock implements InventoryProvider {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof RiftChestBlockEntity) {
                 if (!((RiftChestBlockEntity) entity).hasStoredPlayer())
-                    player.sendMessage(new LiteralText("Rift chest is not bound to a player"), true);
+                    player.sendMessage(Text.literal("Rift chest is not bound to a player"), true);
                 RiftEChestInventory inv = ((RiftChestBlockEntity) entity).getEChestInv((ServerWorld) world);
-                if (inv == null) player.sendMessage(new LiteralText("Bound player must be online to use"), true);
+                if (inv == null) player.sendMessage(Text.literal("Bound player must be online to use"), true);
                 else {
                     // player.openHandledScreen(RiftScreenHandler.createScreenHandlerFactory(inv, new LiteralText("Rift Ender Chest: ").append(((RiftChestBlockEntity) entity).getPlayerName((ServerWorld) world))));
                     player.openHandledScreen(new SimpleNamedScreenHandlerFactory((i, playerInventory, playerEntity) -> {
