@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.0-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -13,9 +13,9 @@ group = project.maven_group
 
 repositories {
 	maven { url 'https://maven.fabricmc.net' }
-	maven {url ="https://maven.kyrptonaught.dev"}
+	maven { url "https://maven.kyrptonaught.dev" }
 	maven { url "https://maven.shedaniel.me/" }
-	maven { url "https://maven.terraformersmc.com/releases"}
+	maven { url "https://maven.terraformersmc.com/releases" }
 }
 
 dependencies {
@@ -24,28 +24,20 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	//modImplementation group: 'net.devtech', name: 'arrp', version: '0.3.4'
-	//include group: 'net.devtech', name: 'arrp', version: '0.3.4'
-
 	//shulkerutils
-	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
-	include 'net.kyrptonaught:shulkerutils:1.0.4-1.18'
+	modImplementation 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
+	include 'net.kyrptonaught:shulkerutils:1.0.4-1.19'
+
+	modImplementation 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
+	include 'net.kyrptonaught:kyrptconfig:1.5.0-1.19'
 
 	//Quickshulker
-	optionalDependency('net.kyrptonaught:quickshulker:1.3.6-1.19')
+	modImplementation 'net.kyrptonaught:quickshulker:1.3.10-1.19.3'
 
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems-fabric:9.1.500")
-}
-//thanks techreborn
-def optionalDependency(String dep) {
-	dependencies.modRuntimeOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
-	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc.fabric-api"
-		exclude module: "nbt-crafting"
-	}
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.592"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.592"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.592"
+
 }
 
 processResources {

@@ -14,7 +14,6 @@ import net.minecraft.text.Text;
 @Environment(EnvType.CLIENT)
 public class REIPlugin implements REIClientPlugin {
 
-
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         DefaultInformationDisplay display = DefaultInformationDisplay.createFromEntry(EntryStacks.of(UpgradedEchestMod.riftEChest), Text.translatable("block.upgradedechests.riftchest"));

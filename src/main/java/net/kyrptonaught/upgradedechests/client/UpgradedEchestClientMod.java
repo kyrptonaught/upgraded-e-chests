@@ -5,9 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
@@ -17,28 +15,27 @@ import net.kyrptonaught.upgradedechests.block.RiftEChest;
 import net.kyrptonaught.upgradedechests.block.SpatialEChest;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 
 
 @Environment(EnvType.CLIENT)
 public class UpgradedEchestClientMod implements ClientModInitializer {
-    public static final Identifier SPATIAL_ECHEST_TEXTURE = new Identifier("upgradedechests", "blocks/dimensional_chest");
-    public static final Identifier RIFT_ECHEST_TEXTURE = new Identifier("upgradedechests", "blocks/rift_chest");
-    // public static final Identifier RIFT_ECHEST_HOPPER_TEXTURE = new Identifier("upgradedechests", "blocks/rift_chest_hopper_32");
-    public static final DefaultParticleType BLUEPARTICLE = Registry.register(Registry.PARTICLE_TYPE, "upgradedechests" + ":blueparticle", FabricParticleTypes.simple(true));
-    public static final DefaultParticleType GREENPARTICLE = Registry.register(Registry.PARTICLE_TYPE, "upgradedechests" + ":greenparticle", FabricParticleTypes.simple(true));
+    public static final Identifier SPATIAL_ECHEST_TEXTURE = new Identifier("upgradedechests", "entity/chest/dimensional_chest");
+    public static final Identifier RIFT_ECHEST_TEXTURE = new Identifier("upgradedechests", "entity/chest/rift_chest");
+    public static final DefaultParticleType BLUEPARTICLE = Registry.register(Registries.PARTICLE_TYPE, "upgradedechests" + ":blueparticle", FabricParticleTypes.simple(true));
+    public static final DefaultParticleType GREENPARTICLE = Registry.register(Registries.PARTICLE_TYPE, "upgradedechests" + ":greenparticle", FabricParticleTypes.simple(true));
 
     @Override
     public void onInitializeClient() {
-        BlockEntityRendererRegistry.register(SpatialEChest.blockEntity, ChestBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.register(RiftEChest.blockEntity, ChestBlockEntityRenderer::new);
-        ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(SPATIAL_ECHEST_TEXTURE));
-        ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(RIFT_ECHEST_TEXTURE));
-        //ClientSpriteRegistryCallback.event(TexturedRenderLayers.CHEST_ATLAS_TEXTURE).register((atlasTexture, registry) -> registry.register(RIFT_ECHEST_HOPPER_TEXTURE));
+        BlockEntityRendererFactories.register(SpatialEChest.blockEntity, ChestBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(RiftEChest.blockEntity, ChestBlockEntityRenderer::new);
+
         ParticleFactoryRegistry.getInstance().register(BLUEPARTICLE, ColoredPortalParticle.BlueFactory::new);
         ParticleFactoryRegistry.getInstance().register(GREENPARTICLE, ColoredPortalParticle.GreenFactory::new);
         BuiltinItemRendererRegistry.INSTANCE.register(UpgradedEchestMod.spatialEChest, (stack, mode, matrices, vertexConsumers, light, overlay) -> {

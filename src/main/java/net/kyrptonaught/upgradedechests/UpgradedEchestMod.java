@@ -1,8 +1,8 @@
 package net.kyrptonaught.upgradedechests;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.kyrptonaught.upgradedechests.block.RiftEChest;
 import net.kyrptonaught.upgradedechests.block.SpatialEChest;
@@ -22,8 +22,7 @@ public class UpgradedEchestMod implements ModInitializer {
 
     public static SpatialEChest spatialEChest;
     public static RiftEChest riftEChest;
-
-    public static final ItemGroup GROUP = FabricItemGroupBuilder.build(new Identifier(MOD_ID, "echests"), () -> new ItemStack(riftEChest));
+    public static final ItemGroup GROUP = FabricItemGroup.builder(new Identifier(MOD_ID, "echests")).icon(() -> new ItemStack(riftEChest)).build();
 
     @Override
     public void onInitialize() {

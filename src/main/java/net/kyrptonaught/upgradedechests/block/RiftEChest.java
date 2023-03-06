@@ -2,6 +2,7 @@ package net.kyrptonaught.upgradedechests.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.kyrptonaught.upgradedechests.UpgradedEchestMod;
 import net.kyrptonaught.upgradedechests.block.blockentity.OpenableBlockEntity;
@@ -21,6 +22,8 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.world.ServerWorld;
@@ -30,7 +33,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
@@ -41,10 +43,10 @@ public class RiftEChest extends EnderChestBlock implements InventoryProvider {
 
     public RiftEChest(Settings settings) {
         super(settings);
-        Registry.register(Registry.BLOCK, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), this);
-        blockEntity = Registry.register(Registry.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":riftchest", FabricBlockEntityTypeBuilder.create(RiftChestBlockEntity::new, this).build(null));
-        Item.Settings itemSettings = new Item.Settings().group(UpgradedEchestMod.GROUP);
-        Registry.register(Registry.ITEM, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), new BlockItem(this, itemSettings));
+        Registry.register(Registries.BLOCK, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), this);
+        blockEntity = Registry.register(Registries.BLOCK_ENTITY_TYPE, UpgradedEchestMod.MOD_ID + ":riftchest", FabricBlockEntityTypeBuilder.create(RiftChestBlockEntity::new, this).build(null));
+        Registry.register(Registries.ITEM, new Identifier(UpgradedEchestMod.MOD_ID, "riftchest"), new BlockItem(this, new Item.Settings()));
+        ItemGroupEvents.modifyEntriesEvent(UpgradedEchestMod.GROUP).register(entries -> entries.add(new ItemStack(this)));
     }
 
     @Override
