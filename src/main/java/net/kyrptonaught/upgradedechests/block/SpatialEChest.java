@@ -17,7 +17,6 @@ import net.minecraft.block.EnderChestBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.damage.EntityDamageSource;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -75,7 +74,7 @@ public class SpatialEChest extends EnderChestBlock {
 
     @Override
     public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
-        if (explosion.getDamageSource() instanceof EntityDamageSource && explosion.getDamageSource().getSource() instanceof CreeperEntity) {
+        if (explosion.getDamageSource().getSource() instanceof CreeperEntity) {
             CreeperEntity creeperEntity = (CreeperEntity) explosion.getDamageSource().getSource();
             if (creeperEntity.getDataTracker().get(CreeperEntityAccessor.getCharged())) {
                 Block.dropStack(world, pos, new ItemStack(UpgradedEchestMod.riftEChest));
@@ -85,7 +84,7 @@ public class SpatialEChest extends EnderChestBlock {
 
     @Override
     public boolean shouldDropItemsOnExplosion(Explosion explosion) {
-        if (explosion.getDamageSource() instanceof EntityDamageSource && explosion.getDamageSource().getSource() instanceof CreeperEntity) {
+        if (explosion.getDamageSource().getSource() instanceof CreeperEntity) {
             CreeperEntity creeperEntity = (CreeperEntity) explosion.getDamageSource().getSource();
             if (creeperEntity.getDataTracker().get(CreeperEntityAccessor.getCharged()))
                 return false;
